@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';"
+>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content="TaskForge - A simple desktop task manager powered by Electron and Supabase."
+  />
+
+  <title>TaskForge - Desktop Task Manager</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- =========================================================
+       APPLICATION LOADING SCREEN
+       ========================================================= -->
+
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="brand-mark">
+        ✓
+      </div>
+
+      <h1>TaskForge</h1>
+
+      <p>Loading your workspace...</p>
+
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       TOAST NOTIFICATIONS
+       ========================================================= -->
+
+  <div
+    id="toast-container"
+    class="toast-container"
+    aria-live="polite"
+    aria-atomic="true"
+  ></div>
+
+
+  <!-- =========================================================
+       AUTHENTICATION SECTION
+       ========================================================= -->
+
+  <section id="auth-section" class="auth-section hidden">
+
+    <div class="auth-background">
+
+      <div class="auth-decoration decoration-one"></div>
+      <div class="auth-decoration decoration-two"></div>
+      <div class="auth-decoration decoration-three"></div>
+
+    </div>
+
+
+    <div class="auth-container">
+
+      <!-- LEFT / BRANDING SIDE -->
+
+      <div class="auth-brand">
+
+        <div class="large-brand-mark">
+          ✓
+        </div>
+
+        <h1>TaskForge</h1>
+
+        <p class="brand-tagline">
+          Turn your plans into progress.
+        </p>
+
+        <p class="brand-description">
+          A simple and focused desktop task manager designed
+          to help you organize your work, track progress,
+          and get things done.
+        </p>
+
+        <div class="feature-list">
+
+          <div class="feature-item">
+            <span class="feature-icon">✓</span>
+            <span>Create and organize tasks</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">✓</span>
+            <span>Track completed work</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">✓</span>
+            <span>Keep your tasks private</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- AUTH CARD -->
+
+      <div class="auth-card">
+
+        <!-- ================================
+             SIGN IN
+             ================================= -->
+
+        <div id="signin-view" class="auth-view">
+
+          <div class="auth-card-header">
+
+            <span class="eyebrow">
+              WELCOME BACK
+            </span>
+
+            <h2>Sign in to TaskForge</h2>
+
+            <p>
+              Continue managing your tasks.
+            </p>
+
+          </div>
+
+
+          <form id="signin-form" class="auth-form">
+
+            <div class="form-group">
+
+              <label for="signin-email">
+                Email address
+              </label>
+
+              <input
+                type="email"
+                id="signin-email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="signin-password">
+                Password
+              </label>
+
+              <div class="password-wrapper">
+
+                <input
+                  type="password"
+                  id="signin-password"
+                  name="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="signin-password"
+                  aria-label="Show password"
+                >
+                  Show
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="submit"
+              id="signin-button"
+              class="primary-button full-width"
+            >
+              <span class="button-text">
+                Sign In
+              </span>
+
+              <span class="button-loader hidden">
+                <span class="small-spinner"></span>
+                Signing in...
+              </span>
+            </button>
+
+          </form>
+
+
+          <div class="auth-switch">
+
+            <span>
+              Don't have an account?
+            </span>
+
+            <button
+              type="button"
+              id="show-signup"
+              class="text-button"
+            >
+              Create one
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================
+             SIGN UP
+             ================================= -->
+
+        <div id="signup-view" class="auth-view hidden">
+
+          <div class="auth-card-header">
+
+            <span class="eyebrow">
+              GET STARTED
+            </span>
+
+            <h2>Create your account</h2>
+
+            <p>
+              Start organizing your work with TaskForge.
+            </p>
+
+          </div>
+
+
+          <form id="signup-form" class="auth-form">
+
+            <div class="form-group">
+
+              <label for="signup-email">
+                Email address
+              </label>
+
+              <input
+                type="email"
+                id="signup-email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="signup-password">
+                Password
+              </label>
+
+              <div class="password-wrapper">
+
+                <input
+                  type="password"
+                  id="signup-password"
+                  name="password"
+                  placeholder="At least 6 characters"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="signup-password"
+                  aria-label="Show password"
+                >
+                  Show
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="signup-confirm-password">
+                Confirm password
+              </label>
+
+              <div class="password-wrapper">
+
+                <input
+                  type="password"
+                  id="signup-confirm-password"
+                  name="confirmPassword"
+                  placeholder="Re-enter your password"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="signup-confirm-password"
+                  aria-label="Show password"
+                >
+                  Show
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="submit"
+              id="signup-button"
+              class="primary-button full-width"
+            >
+              <span class="button-text">
+                Create Account
+              </span>
+
+              <span class="button-loader hidden">
+                <span class="small-spinner"></span>
+                Creating account...
+              </span>
+
+            </button>
+
+          </form>
+
+
+          <div class="auth-switch">
+
+            <span>
+              Already have an account?
+            </span>
+
+            <button
+              type="button"
+              id="show-signin"
+              class="text-button"
+            >
+              Sign in
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       MAIN APPLICATION
+       ========================================================= -->
+
+  <section id="app-section" class="app-section hidden">
+
+    <div class="app-layout">
+
+
+      <!-- =====================================================
+           SIDEBAR
+           ===================================================== -->
+
+      <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+          <!-- LOGO -->
+
+          <div class="sidebar-brand">
+
+            <div class="sidebar-brand-mark">
+              ✓
+            </div>
+
+            <div>
+              <h1>TaskForge</h1>
+
+              <span>
+                Task Manager
+              </span>
+            </div>
+
+          </div>
+
+
+          <!-- NAVIGATION -->
+
+          <nav class="sidebar-nav">
+
+            <button
+              type="button"
+              class="nav-item active"
+              data-page="dashboard"
+              id="nav-dashboard"
+            >
+              <span class="nav-icon">⌂</span>
+              <span>Dashboard</span>
+            </button>
+
+
+            <button
+              type="button"
+              class="nav-item"
+              data-page="tasks"
+              id="nav-tasks"
+            >
+              <span class="nav-icon">☷</span>
+              <span>My Tasks</span>
+            </button>
+
+          </nav>
+
+        </div>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+          <div class="sidebar-user">
+
+            <div
+              class="user-avatar"
+              id="sidebar-avatar"
+            >
+              U
+            </div>
+
+            <div class="user-info">
+
+              <strong id="sidebar-user-name">
+                User
+              </strong>
+
+              <span id="sidebar-user-email">
+                user@example.com
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            id="logout-button"
+            class="logout-button"
+          >
+            <span class="nav-icon">↪</span>
+            <span>Logout</span>
+          </button>
+
+        </div>
+
+      </aside>
+
+
+      <!-- =====================================================
+           MAIN CONTENT
+           ===================================================== -->
+
+      <main class="main-content">
+
+
+        <!-- ================================================
+             TOP HEADER
+             ================================================= -->
+
+        <header class="top-header">
+
+          <div class="page-heading">
+
+            <p id="page-eyebrow" class="page-eyebrow">
+              OVERVIEW
+            </p>
+
+            <h2 id="page-title">
+              Dashboard
+            </h2>
+
+            <p id="page-subtitle">
+              Here's what's happening with your tasks.
+            </p>
+
+          </div>
+
+
+          <div class="header-actions">
+
+            <button
+              type="button"
+              id="header-add-task"
+              class="primary-button"
+            >
+              <span class="plus-icon">+</span>
+              Add Task
+            </button>
+
+          </div>
+
+        </header>
+
+
+        <!-- =================================================
+             DASHBOARD PAGE
+             ================================================= -->
+
+        <section
+          id="dashboard-page"
+          class="page-section"
+        >
+
+          <!-- STAT CARDS -->
+
+          <div class="stats-grid">
+
+
+            <!-- TOTAL -->
+
+            <div class="stat-card">
+
+              <div class="stat-card-top">
+
+                <div class="stat-icon total-icon">
+                  ☷
+                </div>
+
+                <span class="stat-label">
+                  TOTAL TASKS
+                </span>
+
+              </div>
+
+              <div class="stat-number" id="total-tasks">
+                0
+              </div>
+
+              <p class="stat-description">
+                Tasks in your workspace
+              </p>
+
+            </div>
+
+
+            <!-- PENDING -->
+
+            <div class="stat-card">
+
+              <div class="stat-card-top">
+
+                <div class="stat-icon pending-icon">
+                  ◷
+                </div>
+
+                <span class="stat-label">
+                  PENDING
+                </span>
+
+              </div>
+
+              <div class="stat-number" id="pending-tasks">
+                0
+              </div>
+
+              <p class="stat-description">
+                Tasks waiting to be done
+              </p>
+
+            </div>
+
+
+            <!-- COMPLETED -->
+
+            <div class="stat-card">
+
+              <div class="stat-card-top">
+
+                <div class="stat-icon completed-icon">
+                  ✓
+                </div>
+
+                <span class="stat-label">
+                  COMPLETED
+                </span>
+
+              </div>
+
+              <div class="stat-number" id="completed-tasks">
+                0
+              </div>
+
+              <p class="stat-description">
+                Tasks you've finished
+              </p>
+
+            </div>
+
+
+            <!-- COMPLETION -->
+
+            <div class="stat-card">
+
+              <div class="stat-card-top">
+
+                <div class="stat-icon progress-icon">
+                  %
+                </div>
+
+                <span class="stat-label">
+                  COMPLETION
+                </span>
+
+              </div>
+
+              <div class="stat-number" id="completion-rate">
+                0%
+              </div>
+
+              <p class="stat-description">
+                Overall completion rate
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- DASHBOARD LOWER CONTENT -->
+
+          <div class="dashboard-grid">
+
+
+            <!-- PROGRESS CARD -->
+
+            <div class="content-card progress-card">
+
+              <div class="card-header">
+
+                <div>
+
+                  <span class="card-eyebrow">
+                    YOUR PROGRESS
+                  </span>
+
+                  <h3>
+                    Task completion
+                  </h3>
+
+                </div>
+
+                <span
+                  class="progress-percentage"
+                  id="progress-percentage"
+                >
+                  0%
+                </span>
+
+              </div>
+
+
+              <div class="large-progress">
+
+                <div
+                  class="large-progress-bar"
+                  id="large-progress-bar"
+                  style="width: 0%;"
+                ></div>
+
+              </div>
+
+
+              <div class="progress-details">
+
+                <span>
+                  <strong id="progress-completed">
+                    0
+                  </strong>
+                  completed
+                </span>
+
+                <span>
+                  <strong id="progress-remaining">
+                    0
+                  </strong>
+                  remaining
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- QUICK ACTION CARD -->
+
+            <div class="content-card quick-card">
+
+              <div class="card-header">
+
+                <div>
+
+                  <span class="card-eyebrow">
+                    QUICK ACTION
+                  </span>
+
+                  <h3>
+                    Ready to get things done?
+                  </h3>
+
+                </div>
+
+              </div>
+
+              <p>
+                Create a new task and keep your work
+                moving forward.
+              </p>
+
+              <button
+                type="button"
+                id="quick-add-task"
+                class="secondary-button"
+              >
+                <span>+</span>
+                Create a Task
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- RECENT TASKS -->
+
+          <div class="content-card recent-card">
+
+            <div class="card-header">
+
+              <div>
+
+                <span class="card-eyebrow">
+                  RECENT ACTIVITY
+                </span>
+
+                <h3>
+                  Recent Tasks
+                </h3>
+
+              </div>
+
+              <button
+                type="button"
+                id="view-all-tasks"
+                class="text-button"
+              >
+                View all
+              </button>
+
+            </div>
+
+
+            <div
+              id="recent-tasks-container"
+              class="recent-tasks-container"
+            >
+
+              <!-- Rendered by renderer.js -->
+
+              <div class="empty-state small-empty">
+
+                <div class="empty-icon">
+                  ✓
+                </div>
+
+                <h4>
+                  No tasks yet
+                </h4>
+
+                <p>
+                  Create your first task to get started.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TASKS PAGE
+             ================================================= -->
+
+        <section
+          id="tasks-page"
+          class="page-section hidden"
+        >
+
+
+          <!-- TASK PAGE TOOLBAR -->
+
+          <div class="tasks-toolbar">
+
+            <div class="task-summary">
+
+              <span id="task-count-label">
+                0 tasks
+              </span>
+
+            </div>
+
+
+            <div class="task-filters">
+
+              <button
+                type="button"
+                class="filter-button active"
+                data-filter="all"
+              >
+                All
+              </button>
+
+              <button
+                type="button"
+                class="filter-button"
+                data-filter="pending"
+              >
+                Pending
+              </button>
+
+              <button
+                type="button"
+                class="filter-button"
+                data-filter="completed"
+              >
+                Completed
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- TASK LIST -->
+
+          <div
+            id="tasks-container"
+            class="tasks-container"
+          >
+
+            <!-- Rendered by renderer.js -->
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                ✓
+              </div>
+
+              <h3>
+                No tasks found
+              </h3>
+
+              <p>
+                Create a task to start organizing your work.
+              </p>
+
+              <button
+                type="button"
+                id="empty-add-task"
+                class="primary-button"
+              >
+                <span>+</span>
+                Add Your First Task
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       ADD / EDIT TASK MODAL
+       ========================================================= -->
+
+  <div
+    id="task-modal"
+    class="modal-overlay hidden"
+  >
+
+    <div
+      class="modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="task-modal-title"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <span class="modal-eyebrow">
+            TASK
+          </span>
+
+          <h2 id="task-modal-title">
+            Create a new task
+          </h2>
+
+        </div>
+
+        <button
+          type="button"
+          id="close-task-modal"
+          class="modal-close"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="task-form" class="task-form">
+
+        <input
+          type="hidden"
+          id="task-id"
+          value=""
+        />
+
+
+        <div class="form-group">
+
+          <label for="task-title">
+            Task title
+          </label>
+
+          <input
+            type="text"
+            id="task-title"
+            placeholder="What needs to be done?"
+            maxlength="120"
+            required
+          />
+
+          <small>
+            Give your task a clear and specific title.
+          </small>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="task-description">
+            Description
+            <span class="optional-label">
+              Optional
+            </span>
+          </label>
+
+          <textarea
+            id="task-description"
+            rows="6"
+            maxlength="1000"
+            placeholder="Add more details about this task..."
+          ></textarea>
+
+          <small>
+            Add notes, requirements, or useful context.
+          </small>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            id="cancel-task"
+            class="secondary-button"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            id="save-task-button"
+            class="primary-button"
+          >
+            <span class="button-text">
+              Create Task
+            </span>
+
+            <span class="button-loader hidden">
+              <span class="small-spinner"></span>
+              Saving...
+            </span>
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       DELETE CONFIRMATION MODAL
+       ========================================================= -->
+
+  <div
+    id="delete-modal"
+    class="modal-overlay hidden"
+  >
+
+    <div
+      class="modal-card delete-modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="delete-modal-title"
+    >
+
+      <div class="delete-icon">
+        !
+      </div>
+
+      <h2 id="delete-modal-title">
+        Delete this task?
+      </h2>
+
+      <p>
+        This action cannot be undone. The task will be
+        permanently removed from your account.
+      </p>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          id="cancel-delete"
+          class="secondary-button"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          id="confirm-delete"
+          class="danger-button"
+        >
+          Delete Task
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+
+  <script src="renderer.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "taskforge",
+  "version": "1.0.0",
+  "description": "TaskForge - Desktop Task Manager built with Electron.js and Supabase",
+  "main": "main.js",
+  "author": "TaskForge",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2"
+  },
+  "devDependencies": {
+    "electron": "^38.1.2"
+  }
+}
